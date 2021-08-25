@@ -44,4 +44,5 @@ setarch linux32 -L "$md_inst"/defendguin-0.0.11/defendguin
 __EOF__
 
     chmod a+x "$romdir/box86/Defendguin.sh"
+    chown $user:$user "$romdir/box86/Defendguin.sh"
 }
