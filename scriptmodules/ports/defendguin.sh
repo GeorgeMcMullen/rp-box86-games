@@ -11,6 +11,7 @@
 
 #
 # TODO: Game only takes up a small portion of a 1920x1080 screen, even when setting resolution for Box86+ROM. Possibly because it runs on SDL1.
+# TODO: Should see if X11 can be autodetected and run appropriately, instead of having two scripts
 #
 
 rp_module_id="defendguin"
@@ -39,10 +40,23 @@ function install_bin_defendguin() {
 function configure_defendguin() {
     cat > "$romdir/box86/Defendguin.sh" << __EOF__
 #!/bin/bash
+export LD_LIBRARY_PATH="/opt/retropie/supplementary/mesa/lib/"
 cd "$md_inst/defendguin-0.0.11/"
-setarch linux32 -L "$md_inst"/defendguin-0.0.11/defendguin 
+setarch linux32 -L "$md_inst"/defendguin-0.0.11/defendguin --fullscreen
 __EOF__
 
     chmod a+x "$romdir/box86/Defendguin.sh"
     chown $user:$user "$romdir/box86/Defendguin.sh"
+
+    cat > "$romdir/box86/Defendguin-X11.sh" << __EOFX11__
+#!/bin/bash
+xset -dpms s off s noblank
+export LD_LIBRARY_PATH="/opt/retropie/supplementary/mesa/lib/"
+cd "$md_inst/defendguin-0.0.11/"
+matchbox-window-manager &
+setarch linux32 -L "$md_inst"/defendguin-0.0.11/defendguin --fullscreen
+__EOFX11__
+
+    chmod a+x "$romdir/box86/Defendguin-X11.sh"
+    chown $user:$user "$romdir/box86/Defendguin-X11.sh"
 }
