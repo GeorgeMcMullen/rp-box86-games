@@ -39,7 +39,7 @@ function configure_malditacastillalinux() {
     cat > "$romdir/box86/Maldita Castilla (Locomalito).sh" << __EOFX11__
 #!/bin/bash
 xset -dpms s off s noblank
-export LD_LIBRARY_PATH="/opt/retropie/supplementary/mesa/lib/"
+export LD_LIBRARY_PATH="/opt/retropie/supplementary/mesa/lib/:/opt/retropie/emulators/box86/"
 cd "$md_inst/MalditaCastilla/"
 matchbox-window-manager &
 setarch linux32 -L "$md_inst"/MalditaCastilla/runner
