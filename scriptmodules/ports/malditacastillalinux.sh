@@ -10,7 +10,6 @@
 #
 
 #
-# TODO: Sound is not working for some reason
 # TODO: Should see if X11 can be autodetected and run appropriately
 #
 
@@ -36,6 +35,14 @@ function install_bin_malditacastillalinux() {
 }
 
 function configure_malditacastillalinux() {
+
+    # The following lines are needed in order to enable sound to play
+    # See also: https://github.com/mickelson/attract/issues/681
+    cat > "/home/pi/.alsoftrc" << __EOFALSOFTRC__
+[alsa]
+mmap = false
+__EOFALSOFTRC__
+
     cat > "$romdir/box86/Maldita Castilla (Locomalito).sh" << __EOFX11__
 #!/bin/bash
 xset -dpms s off s noblank
